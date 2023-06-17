@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace ReportingApi.Models;
 
 [JsonConverter(typeof(ReportRequestConverter))]
-public class ReportRequest
+public record ReportRequest
 {
     [JsonPropertyName("age")]
     public int Age { get; set; }
@@ -16,7 +16,7 @@ public class ReportRequest
     public string UserAgent { get; set; } = null!;
 }
 
-public class ReportRequest<TBody> : ReportRequest
+public sealed record ReportRequest<TBody> : ReportRequest
     where TBody : class, IReportBody
 {
     [JsonPropertyName("body")]

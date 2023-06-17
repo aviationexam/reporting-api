@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ReportingApi.Models;
 
-public class CspReport : IReportBody
+public sealed record CspReport : IReportBody
 {
     [JsonPropertyName("blockedURL")]
     public string BlockedUri { get; set; } = null!;
