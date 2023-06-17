@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingApi", "src\ReportingApi\ReportingApi.csproj", "{03785889-0A06-4001-9144-36C1A2278B94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingApi.Tests", "src\ReportingApi.Tests\ReportingApi.Tests.csproj", "{6001C0E3-D5B9-4537-ACE2-1187D28799BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{03785889-0A06-4001-9144-36C1A2278B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03785889-0A06-4001-9144-36C1A2278B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03785889-0A06-4001-9144-36C1A2278B94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6001C0E3-D5B9-4537-ACE2-1187D28799BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6001C0E3-D5B9-4537-ACE2-1187D28799BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6001C0E3-D5B9-4537-ACE2-1187D28799BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6001C0E3-D5B9-4537-ACE2-1187D28799BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
