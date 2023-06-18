@@ -13,7 +13,7 @@ public record ReportRequest
     public string Url { get; set; } = null!;
 
     [JsonPropertyName("user_agent")]
-    public string UserAgent { get; set; } = null!;
+    public string? UserAgent { get; set; }
 }
 
 public sealed record ReportRequest<TBody> : ReportRequest
