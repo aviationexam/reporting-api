@@ -38,4 +38,4 @@ jobs:
       - name: Restore
         run: dotnet restore --nologo
       - name: .Net Lint
-        uses: zyactions/dotnet-lint@v1.1
+        uses: zyactions/dotnet-lint@v1.1.0
