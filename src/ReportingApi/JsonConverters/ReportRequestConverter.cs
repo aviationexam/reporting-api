@@ -75,6 +75,11 @@ public class ReportRequestConverter : JsonConverter<ReportRequest>
             return typeof(CspReport);
         }
 
+        if (type.SequenceEqual("network-error"u8))
+        {
+            return typeof(NetworkErrorReport);
+        }
+
         var typeString = Encoding.UTF8.GetString(type);
         throw new JsonException($"Type '{typeString}' does not have defined body type");
     }

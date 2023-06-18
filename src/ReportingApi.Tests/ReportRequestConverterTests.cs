@@ -33,11 +33,47 @@ public class ReportRequestConverterTests
 
         Assert.NotNull(reportRequest);
         Assert.Equal(1, reportRequest.Age);
-        Assert.Equal("https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d", reportRequest.Url);
-        Assert.Equal("Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36", reportRequest.UserAgent);
+        Assert.Equal("https://csplite.com/tst/test_frame.php?ID=229&hash=da964209653e467d337313e51876e27d",
+            reportRequest.Url);
+        Assert.Equal(
+            "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36",
+            reportRequest.UserAgent);
 
         var cspReport = Assert.IsType<ReportRequest<CspReport>>(reportRequest);
         Assert.Equal("csp-violation", cspReport.Type);
+        Assert.NotNull(cspReport.Body);
+    }
+
+    [Fact]
+    public void NetworkErrorTest()
+    {
+        var sourceJson = """
+                         {
+                           "age": 2,
+                           "type": "network-error",
+                           "url": "https://widget.com/thing.js",
+                           "body": {
+                             "sampling_fraction": 1.0,
+                             "referrer": "https://www.example.com/",
+                             "server_ip": "",
+                             "protocol": "",
+                             "method": "GET",
+                             "status_code": 0,
+                             "elapsed_time": 143,
+                             "type": "dns.name_not_resolved"
+                           }
+                         }
+                         """;
+
+        var reportRequest = JsonSerializer.Deserialize<ReportRequest>(sourceJson);
+
+        Assert.NotNull(reportRequest);
+        Assert.Equal(2, reportRequest.Age);
+        Assert.Equal("https://widget.com/thing.js", reportRequest.Url);
+        Assert.Null(reportRequest.UserAgent);
+
+        var cspReport = Assert.IsType<ReportRequest<NetworkErrorReport>>(reportRequest);
+        Assert.Equal("network-error", cspReport.Type);
         Assert.NotNull(cspReport.Body);
     }
 }

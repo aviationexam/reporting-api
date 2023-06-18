@@ -18,7 +18,7 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - uses: actions/checkout@v3
-      - name: Retore
+      - name: Restore
         run: dotnet restore --nologo
       - name: Build
         run: dotnet build --no-restore --nologo --configuration Release
@@ -31,11 +31,36 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
       - name: Setup .Net 7.0.x
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
-      - name: Retore
+      - name: Restore
         run: dotnet restore --nologo
+      - name: Add .Net Format Problem Matcher
+        shell: bash
+        run: echo "::add-matcher::${{ github.workspace }}/.github/dotnet-format-problem-matcher.json"
       - name: .Net Format
+        id: format
         run: dotnet format --no-restore --verify-no-changes -v diag
+      - name: Remove .Net Format Problem Matcher
+        shell: bash
+        if: always()
+        run: echo "::remove-matcher owner=dotnet-format::"
+      - name: .Net Format
+        if: failure() && steps.format.outcome == 'failure'
+        run: dotnet format --no-restore -v diag
+      - name: Commit files
+        if: failure() && steps.format.outcome == 'failure'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -a -m "Fix CodeStyle"
+      - name: Push changes
+        if: failure() && steps.format.outcome == 'failure'
+        uses: ad-m/github-push-action@master
+        with:
+          branch: ${{ github.head_ref }}
