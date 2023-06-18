@@ -44,7 +44,7 @@ jobs:
         id: format
         uses: zyactions/dotnet-lint@v1.1.0
       - name: Commit files
-        if: steps.format.outputs.has-changes == 'true'
+        if: failure() && steps.format.outcome == 'failure'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
