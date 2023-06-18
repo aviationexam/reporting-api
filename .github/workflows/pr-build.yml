@@ -42,13 +42,18 @@ jobs:
         run: dotnet restore --nologo
       - name: Add .Net Format Problem Matcher
         shell: bash
-        run: |
-          echo "::add-matcher::${{ github.workspace }}/.github/dotnet-format-problem-matcher.json"
+        run: echo "::add-matcher::${{ github.workspace }}/.github/dotnet-format-problem-matcher.json"
       - name: .Net Format
         id: format
+        run: dotnet format --no-restore --verify-no-changes -v diag
+      - name: Remove .Net Format Problem Matcher
+        shell: bash
+        run: echo "::remove-matcher owner=dotnet-format::"
+      - name: .Net Format
+        if: failure() && steps.format.outcome == 'failure'
         run: dotnet format --no-restore -v diag
       - name: Commit files
-        #if: failure() && steps.format.outcome == 'failure'
+        if: failure() && steps.format.outcome == 'failure'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
