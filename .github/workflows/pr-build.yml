@@ -37,5 +37,5 @@ jobs:
           dotnet-version: '7.0.x'
       - name: Retore
         run: dotnet restore --nologo
-      - name: .Net Format
-        run: dotnet format --no-restore --verify-no-changes -v diag
+      - name: .Net Lint
+        run: zyactions/dotnet-lint
