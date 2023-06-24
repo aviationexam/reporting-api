@@ -26,9 +26,7 @@ public class ReportRequestConverter : JsonConverter<ReportRequest>
             throw new JsonException();
         }
 
-        readerClone.Read();
-
-        var depth = readerClone.CurrentDepth;
+        var depth = readerClone.CurrentDepth + 1;
         while (readerClone.Read())
         {
             if (depth < readerClone.CurrentDepth)
