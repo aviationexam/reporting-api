@@ -46,4 +46,8 @@ jobs:
       - name: Push package to Github Packages
         run: dotnet nuget push 'nuget-packages/*.nupkg' --api-key ${{ secrets.GITHUB_TOKEN  }} --source github
       - name: Push package to Nuget
+        if: ${{ vars.USE_MYGET == 'true' }}
         run: dotnet nuget push 'nuget-packages/*.nupkg' --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Push package to Feedz
+        if: ${{ vars.USE_FEEDZ == 'true' }}
+        run: dotnet nuget push 'nuget-packages/*.nupkg' --api-key ${{ secrets.FEEDZ_API_KEY }} --source https://f.feedz.io/aviationexam/reporting-api/nuget/index.json
