@@ -4,8 +4,6 @@ using System.Text.Json.Serialization;
 namespace ReportingApi;
 
 [JsonSourceGenerationOptions(
-    WriteIndented = true,
-    PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
     GenerationMode = JsonSourceGenerationMode.Default
 )]
 [JsonSerializable(typeof(ReportRequest))]
