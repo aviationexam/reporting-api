@@ -1,5 +1,3 @@
 namespace ReportingApi;
 
-public interface IReportBody
-{
-}
+public interface IReportBody;
