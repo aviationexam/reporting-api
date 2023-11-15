@@ -1,4 +1,4 @@
-﻿using ReportingApi.Models;
+using ReportingApi.Models;
 using System.Text.Json.Serialization;
 
 namespace ReportingApi;
