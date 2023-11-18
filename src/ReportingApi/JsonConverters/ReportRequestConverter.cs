@@ -43,12 +43,9 @@ public class ReportRequestConverter : JsonConverter<ReportRequest>
 
                         if (readerClone.TokenType is JsonTokenType.String)
                         {
-                            var bodyType = GetBodyType(readerClone.ValueSpan);
-
-                            var targetType = typeof(ReportRequest<>).MakeGenericType(bodyType);
-
-                            return (ReportRequest?) JsonSerializer.Deserialize(
-                                ref reader, targetType, options
+                            return DeserializeConcreteType(
+                                ref reader,
+                                readerClone.ValueSpan
                             );
                         }
                     }
@@ -66,16 +63,23 @@ public class ReportRequestConverter : JsonConverter<ReportRequest>
         throw new JsonException($"Expected '{TypeDiscriminator}' property, nothing found");
     }
 
-    private Type GetBodyType(ReadOnlySpan<byte> type)
+    private ReportRequest? DeserializeConcreteType(
+        ref Utf8JsonReader reader,
+        ReadOnlySpan<byte> type
+    )
     {
         if (type.SequenceEqual("csp-violation"u8))
         {
-            return typeof(CspReport);
+            return JsonSerializer.Deserialize(
+                ref reader, ReportingApiJsonSerializerContext.Default.ReportRequestCspReport
+            );
         }
 
         if (type.SequenceEqual("network-error"u8))
         {
-            return typeof(NetworkErrorReport);
+            return JsonSerializer.Deserialize(
+                ref reader, ReportingApiJsonSerializerContext.Default.ReportRequestNetworkErrorReport
+            );
         }
 
         var typeString = Encoding.UTF8.GetString(type);
