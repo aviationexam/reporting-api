@@ -13,6 +13,10 @@
     <PackageId>ReportingApi</PackageId>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0' " Label="Enable AOT">
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
   <Import Project="..\WarningConfiguration.targets" />
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
