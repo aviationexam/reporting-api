@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net8.0;net9.0</TargetFrameworks>
-    <LangVersion>12.0</LangVersion>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <LangVersion>13.0</LangVersion>
     <Nullable>enable</Nullable>
     <PackageLicense>MIT</PackageLicense>
     <RepositoryUrl>https://github.com/aviationexam/reporting-api</RepositoryUrl>
@@ -13,15 +13,11 @@
     <PackageId>ReportingApi</PackageId>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0' " Label="Enable AOT">
+  <PropertyGroup Label="Enable AOT">
     <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
 
   <Import Project="..\WarningConfiguration.targets" />
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-    <PackageReference Include="System.Text.Json" Version="7.0.4" />
-  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
     <PackageReference Include="System.Text.Json" Version="8.0.5" />
