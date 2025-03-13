@@ -7,6 +7,11 @@
     <PackageLicense>MIT</PackageLicense>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ReportingApi\ReportingApi.csproj" />
   </ItemGroup>
